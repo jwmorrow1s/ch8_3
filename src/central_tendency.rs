@@ -1,4 +1,4 @@
-use std::collections::{ HashMap, HashSet };
+use std::collections::{HashMap, HashSet};
 
 #[allow(dead_code)]
 #[derive(Debug, PartialEq)]
@@ -58,16 +58,15 @@ fn mode(v: &Vec<i32>) -> HashSet<i32> {
         *count += 1;
     }
 
-    let modes = 
-        counts
-            .iter()
-            .filter(|(_, v)| v.clone() == counts.values().max().unwrap())
-            .map(|(k, _)| k.clone())
-            .collect::<HashSet<i32>>();
+    let modes = counts
+        .iter()
+        .filter(|(_, v)| v.clone() == counts.values().max().unwrap())
+        .map(|(k, _)| k.clone())
+        .collect::<HashSet<i32>>();
 
     if modes.len() == v.len() {
         //if all the elements have the maximum count, then there is no mode
-        HashSet::new() 
+        HashSet::new()
     } else {
         modes
     }
@@ -121,8 +120,14 @@ mod tests {
     fn mode_it_works() {
         assert_eq!(mode(&vec!()), HashSet::new());
         assert_eq!(mode(&vec!(1, 2, 3)), HashSet::new());
-        assert_eq!(mode(&vec!(1, 2, 2, 3)), HashSet::from_iter(vec!(2).iter().cloned()));
-        assert_eq!(mode(&vec!(1, 2, 2, 3, 3, 4)), HashSet::from_iter(vec!(2, 3).iter().cloned()));
+        assert_eq!(
+            mode(&vec!(1, 2, 2, 3)),
+            HashSet::from_iter(vec!(2).iter().cloned())
+        );
+        assert_eq!(
+            mode(&vec!(1, 2, 2, 3, 3, 4)),
+            HashSet::from_iter(vec!(2, 3).iter().cloned())
+        );
     }
 
     #[test]
