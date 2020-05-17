@@ -1,19 +1,19 @@
 use std::collections::{HashMap, HashSet};
-
+//todo implement mean, median as Option<f64>
 #[allow(dead_code)]
 #[derive(Debug, PartialEq)]
 pub struct CentralTendency {
-    pub mean: f64,
-    pub median: f64,
+    pub mean: Option<f64>,
+    pub median: Option<f64>,
     pub mode: HashSet<i32>,
 }
 
 #[allow(dead_code)]
-fn mean(v: &Vec<i32>) -> f64 {
+fn mean(v: &Vec<i32>) -> Option<f64> {
     if v.len() == 0 {
-        0.0
+        None 
     } else {
-        v.iter().sum::<i32>() as f64 / v.len() as f64
+        Some(v.iter().sum::<i32>() as f64 / v.len() as f64)
     }
 }
 
@@ -33,16 +33,16 @@ fn middle_or_average_of_middle_two(v: &Vec<i32>) -> f64 {
 }
 
 #[allow(dead_code)]
-fn median(v: &Vec<i32>) -> f64 {
+fn median(v: &Vec<i32>) -> Option<f64> {
     if v.len() == 0 {
-        return 0.0;
+        return None;
     }
 
     let mut list_copy = v.clone();
 
     list_copy.sort();
 
-    middle_or_average_of_middle_two(&list_copy)
+    Some(middle_or_average_of_middle_two(&list_copy))
 }
 
 #[allow(dead_code)]
@@ -90,9 +90,9 @@ mod tests {
 
     #[test]
     fn mean_it_works() {
-        assert_eq!(mean(&vec!()), 0.0);
-        assert_eq!(mean(&vec!(1)), 1.0);
-        assert_eq!(mean(&vec!(1, 2, 3, 4, 5)), 3.0);
+        assert_eq!(mean(&vec!()), None);
+        assert_eq!(mean(&vec!(1)), Some(1.0));
+        assert_eq!(mean(&vec!(1, 2, 3, 4, 5)), Some(3.0));
     }
 
     #[test]
@@ -109,11 +109,11 @@ mod tests {
 
     #[test]
     fn median_it_works() {
-        assert_eq!(median(&vec!()), 0.0);
-        assert_eq!(median(&vec!(1, 2, 3, 4, 5)), 3.0);
-        assert_eq!(median(&vec!(4, 3, 1, 2, 5)), 3.0);
-        assert_eq!(median(&vec!(1, 2, 4, 5)), 3.0);
-        assert_eq!(median(&vec!(5, 1, 4, 2)), 3.0);
+        assert_eq!(median(&vec!()), None);
+        assert_eq!(median(&vec!(1, 2, 3, 4, 5)), Some(3.0));
+        assert_eq!(median(&vec!(4, 3, 1, 2, 5)), Some(3.0));
+        assert_eq!(median(&vec!(1, 2, 4, 5)), Some(3.0));
+        assert_eq!(median(&vec!(5, 1, 4, 2)), Some(3.0));
     }
 
     #[test]
@@ -135,16 +135,16 @@ mod tests {
         assert_eq!(
             CentralTendency::from_vec(&vec!()),
             CentralTendency {
-                mean: 0.0,
-                median: 0.0,
+                mean: None,
+                median: None,
                 mode: HashSet::new()
             }
         );
         assert_eq!(
             CentralTendency::from_vec(&vec!(4, 3, 2, 3, 2, 1)),
             CentralTendency {
-                mean: 2.5,
-                median: 2.5,
+                mean: Some(2.5),
+                median: Some(2.5),
                 mode: HashSet::from_iter(vec!(2, 3).iter().cloned())
             }
         );
