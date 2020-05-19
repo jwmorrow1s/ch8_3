@@ -9,15 +9,17 @@ pub struct CentralTendency {
 }
 
 #[allow(dead_code)]
+#[inline]
 fn mean(v: &Vec<i32>) -> Option<f64> {
     if v.len() == 0 {
-        None 
+        None
     } else {
         Some(v.iter().sum::<i32>() as f64 / v.len() as f64)
     }
 }
 
 #[allow(dead_code)]
+#[inline]
 fn middle_or_average_of_middle_two(v: &Vec<i32>) -> f64 {
     let list_size_divisible_by_two = v.len() % 2 == 0;
 
@@ -33,6 +35,7 @@ fn middle_or_average_of_middle_two(v: &Vec<i32>) -> f64 {
 }
 
 #[allow(dead_code)]
+#[inline]
 fn median(v: &Vec<i32>) -> Option<f64> {
     if v.len() == 0 {
         return None;
@@ -46,6 +49,7 @@ fn median(v: &Vec<i32>) -> Option<f64> {
 }
 
 #[allow(dead_code)]
+#[inline]
 fn mode(v: &Vec<i32>) -> HashSet<i32> {
     if v.len() == 0 {
         return HashSet::new();
